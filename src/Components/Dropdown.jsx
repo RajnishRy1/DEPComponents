@@ -20,7 +20,7 @@ const Dropdown = ({ countries }) => {
           }
         }
       }, []);
-    const [selectedCountry, setSelectedCountry] = useState('Select a country');
+    const [selectedCountry, setSelectedCountry] = useState('Select a state');
     const handleChange = (event) => {
         const selectedValue = event.target.value;
         setSelectedCountry(selectedValue);
@@ -31,7 +31,7 @@ const Dropdown = ({ countries }) => {
     return (
         <div className="w-25 mt-6">
             <select className="form-select" value={selectedCountry} onChange={handleChange}>
-                <option>Select a country</option>
+                <option>Select a state</option>
                 {countries.map((country, index) => <option key={index}>{country}</option>)}
             </select>
         </div>
