@@ -7,12 +7,17 @@ import { useState, useEffect } from 'react';
 const Dropdown = ({ countries }) => {    
     useEffect(() => {
         if (window.CustomElement) {
-          window.CustomElement.init((element) => {
-            // console.log("Custom Element loaded", element);
-            if (element.value) {
-                setSelectedCountry(element.value);
-              }
-          });
+          try{
+            window.CustomElement.init((element) => {
+              // console.log("Custom Element loaded", element);
+              if (element.value) {
+                  setSelectedCountry(element.value);
+                }
+            });
+          }
+          catch(e){
+            console.log(e);
+          }
         }
       }, []);
     const [selectedCountry, setSelectedCountry] = useState('Select a country');
@@ -24,7 +29,7 @@ const Dropdown = ({ countries }) => {
         CustomElement.setValue(selectedValue);
       };
     return (
-        <div className="container mt-6">
+        <div className="w-25 mt-6">
             <select className="form-select" value={selectedCountry} onChange={handleChange}>
                 <option>Select a country</option>
                 {countries.map((country, index) => <option key={index}>{country}</option>)}
