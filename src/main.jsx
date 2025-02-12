@@ -14,7 +14,7 @@ createRoot(document.getElementById('root')).render(
       {/* <App />
        */}
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<Dropdown countries={Countries}/>} />
         <Route path="/dropdown" element={<Dropdown countries={Countries}/>} />
         <Route path="/iframe" element={<IFrame />} />
       </Routes>
