@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Height } from "@mui/icons-material";
 
-const AppointmentRecurrence = () => {
+const AppointmentRecurrence = ({}) => {
   const [isWeekly, setIsWeekly] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
   const [timeZones, setTimeZones] = useState([]);
@@ -122,7 +122,7 @@ const AppointmentRecurrence = () => {
 
   return (
     <div style={{ height: "100%" }}>
-        <div id="appointment" className="rounded-xl p-6 w-[617px] bg-white shadow-lg flex flex-col overflow-hidden min-h-[90vh]">
+        <div id="appointment" className="rounded-xl p-6 w-[617px] bg-white shadow-lg flex flex-col overflow-hidden h-full">
           <div className="w-full flex justify-between items-center border-b pb-2">
             <h2 className="text-xl font-semibold text-gray-800">Recurrence</h2>
 
@@ -132,7 +132,7 @@ const AppointmentRecurrence = () => {
             />
           </div>
 
-          <div className="flex flex-col max-h-[80vh] overflow-y-auto p-4">
+          <div className="flex flex-col p-4">
             <div className="bg-white shadow-lg p-6 rounded-xl border border-gray-300">
               <h2 className="text-lg font-semibold text-gray-800">
                 Event Date
