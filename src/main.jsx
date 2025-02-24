@@ -7,6 +7,8 @@ import { Countries } from './utils/Countries.js'
 // import './index.css'
 import App from './App.jsx'
 import IFrame from './Components/IFrame.jsx'
+import Video from './Components/Video.jsx'
+import AppointmentRecurrence from './Components/AppointmentReccurence.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +19,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/" element={<Dropdown countries={Countries}/>} />
         <Route path="/dropdown" element={<Dropdown countries={Countries}/>} />
         <Route path="/iframe" element={<IFrame />} />
+        <Route path="/video" element={<Video />} />
+        <Route path="/appointment" element={<AppointmentRecurrence/>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
