@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Height } from "@mui/icons-material";
 
-const AppointmentRecurrence = ({}) => {
+const AppointmentRecurrence = () => {
   const [isWeekly, setIsWeekly] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
   const [timeZones, setTimeZones] = useState([]);
@@ -17,6 +17,7 @@ const AppointmentRecurrence = ({}) => {
   const [endDate, setEndDate] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [eventData, setEventData] = useState({});
+  const [elementValue, setElementValue] = useState({})
 
   const handleClose = () => {
     setIsOpen(false);
@@ -106,7 +107,11 @@ const AppointmentRecurrence = ({}) => {
   useEffect(() => {
     if (window.CustomElement) {
       try {
-        CustomElement.init(callback);
+        window.CustomElement.init((element)=>{
+            if(element.value){
+                setElementValue(element.value);
+            }
+        });
         const height = document.getElementById('appointment').scrollHeight;
         CustomElement.setHeight(height);
       } catch (e) {
