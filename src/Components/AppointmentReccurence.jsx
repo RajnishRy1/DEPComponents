@@ -3,9 +3,17 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Height } from "@mui/icons-material";
 
 const AppointmentRecurrence = ({}) => {
+    const usTimeZones = [
+        "Pacific Time (PT)",
+        "Mountain Time (MT)",
+        "Central Time (CT)",
+        "Eastern Time (ET)",
+        "Alaska Time (AKT)",
+        "Hawaii-Aleutian Time (HAT)",
+      ];
   const [isWeekly, setIsWeekly] = useState(false);
   const [selectedDays, setSelectedDays] = useState([]);
-  const [timeZones, setTimeZones] = useState([]);
+  const [timeZones, setTimeZones] = useState(usTimeZones[0]);
   const [isRecurrence, setIsRecurrence] = useState(false);
   const [recurrenceRange, setRecurrenceRange] = useState("");
   const [startTime, setStartTime] = useState("12:00 PM");
@@ -34,7 +42,9 @@ const AppointmentRecurrence = ({}) => {
       recurrenceStart: isRecurrence ? startDate : null,
       recurrenceEnd: isRecurrence ? endDate : null,
     };
+    window.CustomElement.setValue(JSON.stringify(data));
     setEventData(data);
+
     console.log("Saved Event Data:", data);
     handleClose();
   };
@@ -50,14 +60,7 @@ const AppointmentRecurrence = ({}) => {
     "Friday",
     "Saturday",
   ];
-  const usTimeZones = [
-    "Pacific Time (PT)",
-    "Mountain Time (MT)",
-    "Central Time (CT)",
-    "Eastern Time (ET)",
-    "Alaska Time (AKT)",
-    "Hawaii-Aleutian Time (HAT)",
-  ];
+
 
   const toggleDaySelection = (day) => {
     setSelectedDays((prev) =>
