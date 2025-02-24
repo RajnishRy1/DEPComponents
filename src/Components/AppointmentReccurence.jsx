@@ -107,7 +107,8 @@ const AppointmentRecurrence = ({}) => {
     if (window.CustomElement) {
       try {
         CustomElement.init(callback);
-        CustomElement.setHeight(1000);
+        const height = document.getElementById('appointment').scrollHeight;
+        CustomElement.setHeight(height);
       } catch (e) {
         console.log(e);
       }
@@ -116,8 +117,7 @@ const AppointmentRecurrence = ({}) => {
 
   return (
     <div style={{ height: "100%" }}>
-      {/* <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center z-50 w-full"> */}
-        <div className="rounded-xl p-6 w-[617px] bg-white shadow-lg flex flex-col overflow-hidden max-h-[90vh]">
+        <div id="appointment" className="rounded-xl p-6 w-[617px] bg-white shadow-lg flex flex-col overflow-hidden min-h-[90vh]">
           <div className="w-full flex justify-between items-center border-b pb-2">
             <h2 className="text-xl font-semibold text-gray-800">Recurrence</h2>
 
