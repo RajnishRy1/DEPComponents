@@ -24,6 +24,10 @@ const YoutubeEmbed = ({ onClose }) => {
         const height = document.getElementById('yt_element').scrollHeight;
         window.CustomElement.setHeight(height);
         window.CustomElement.setValue(JSON.stringify(fields));
+        window.CustomElement.init((element,context)=>{
+          const value = JSON.parse(element.value);
+          setFields(value);
+        })
       }catch(e){
         console.log(e);
       }
