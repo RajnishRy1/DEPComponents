@@ -42,11 +42,9 @@ const AppointmentRecurrence = ({}) => {
       recurrenceEnd: isRecurrence ? endDate : null,
       selectedDate: isRecurrence ? selectedDate : null,
     };
-    window.CustomElement.setValue(JSON.stringify(data));
-    setEventData(data);
-
-    console.log("Saved Event Data:", data);
-    handleClose();
+    // window.CustomElement.setValue(JSON.stringify(data));
+    // setEventData(data);
+    alert('Event Date & Time Saved Successfully!');
   };
 
   if (!isOpen) return null;
@@ -137,13 +135,8 @@ const AppointmentRecurrence = ({}) => {
         id="appointment"
         className="rounded-xl p-6 w-[617px] bg-white shadow-lg flex flex-col overflow-hidden h-full"
       >
-        <div className="w-full flex justify-between items-center border-b pb-2">
-          <h2 className="text-xl font-semibold text-gray-800">Recurrence</h2>
-
-          <CloseOutlinedIcon
-            className="cursor-pointer text-gray-500 hover:text-red-500 text-2xl"
-            onClick={handleClose}
-          />
+        <div className="w-full flex justify-center items-center border-b pb-2">
+          <h2 className="text-xl font-semibold text-gray-800">Date & Time</h2>
         </div>
 
         <div className="flex flex-col p-4">
@@ -242,27 +235,6 @@ const AppointmentRecurrence = ({}) => {
                 Make Recurring
               </label>
             </div>
-            {/*isRecurrence && (
-                <div className="flex items-center space-x-8">
-                  <h2 className="text-lg font-semibold text-gray-800">
-                    Weekly
-                  </h2>
-                  <div className="grid grid-cols-3 gap-2 mt-2">
-                    {daysOfWeek.map((day) => (
-                      <label key={day} className="flex items-center">
-                        <input
-                          type="radio"
-                          name="weeklySelection"
-                          className="mr-2"
-                          checked={selectedDay === day}
-                          onChange={() => setSelectedDay(day)}
-                        />
-                        {day}
-                      </label>
-                    ))}
-                  </div>
-                </div>
-              ) */}
             {isRecurrence && (
               <div>
                 {/* Recurrence Type Selection */}
@@ -360,22 +332,15 @@ const AppointmentRecurrence = ({}) => {
           </div>
         </div>
 
-        <div className="flex justify-end gap-2 mt-6">
+        <div className="flex justify-center gap-2 mt-6">
           <button
             className="px-4 py-2 text-white bg-blue-600 hover:bg-blue-700 rounded-lg"
             onClick={handleSave}
           >
-            OK
-          </button>
-          <button
-            className="px-4 py-2 text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg"
-            onClick={handleClose}
-          >
-            Cancel
+            SAVE
           </button>
         </div>
       </div>
-      {/* </div> */}
     </div>
   );
 };
