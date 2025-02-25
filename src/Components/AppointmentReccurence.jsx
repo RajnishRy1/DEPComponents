@@ -120,8 +120,7 @@ const AppointmentRecurrence = ({}) => {
           setIsRecurrence(parsedValue.isRecurrence || false);
           setRecurrenceType(parsedValue.recurrenceType || "weekly");
           setSelectedDay(parsedValue.selectedDay || null);
-          setStartDate(parsedValue.startDate || "");
-          setEndDate(parsedValue.endDate || "");
+          setEndDate(parsedValue.recurrenceEnd || "");
           setSelectedDate(parsedValue.selectedDate || null);
         });
         const height = document.getElementById("appointment").scrollHeight;
