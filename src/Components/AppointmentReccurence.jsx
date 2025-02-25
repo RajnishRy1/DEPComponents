@@ -11,26 +11,19 @@ const AppointmentRecurrence = ({}) => {
         "Alaska Time (AKT)",
         "Hawaii-Aleutian Time (HAT)",
       ];
-  const [isWeekly, setIsWeekly] = useState(false);
-  const [selectedDays, setSelectedDays] = useState([]);
+
   const [timeZones, setTimeZones] = useState(usTimeZones[0]);
   const [isRecurrence, setIsRecurrence] = useState(false);
-  const [recurrenceRange, setRecurrenceRange] = useState("");
   const [startTime, setStartTime] = useState("12:00 PM");
   const [endTime, setEndTime] = useState("12:30 PM");
   const [duration, setDuration] = useState("30 minutes");
-  const durationOptions = ["15 minutes", "30 minutes", "45 minutes", "1 hour"];
   const [selectedDay, setSelectedDay] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [eventData, setEventData] = useState({});
-  const [elementValue, setElementValue] = useState({});
   const [recurrenceType, setRecurrenceType] = useState("weekly");
-// const [selectedDay, setSelectedDay] = useState(null);
-const [selectedDate, setSelectedDate] = useState("");
-// const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
+  const [selectedDate, setSelectedDate] = useState("");
 
   const handleClose = () => {
     setIsOpen(false);
@@ -120,6 +113,18 @@ const [selectedDate, setSelectedDate] = useState("");
         window.CustomElement.init((element, context) => {
           // Initializes the custom element
           initMyCustomElement(element.value, element.disabled, element.config);
+          const parsedValue = JSON.parse(value);
+          setStartDate(parsedValue.date || "");
+      setTimeZones(parsedValue.timeZones || []);
+      setStartTime(parsedValue.startTime || "");
+      setEndTime(parsedValue.endTime || "");
+      setDuration(parsedValue.duration || "");
+      setIsRecurrence(parsedValue.isRecurrence || false);
+      setRecurrenceType(parsedValue.recurrenceType || "weekly");
+      setSelectedDay(parsedValue.selectedDay || null);
+      setStartDate(parsedValue.startDate || "");
+      setEndDate(parsedValue.endDate || "");
+      setSelectedDate(parsedValue.selectedDate || null);
        });
         const height = document.getElementById('appointment').scrollHeight;
         CustomElement.setHeight(height);
