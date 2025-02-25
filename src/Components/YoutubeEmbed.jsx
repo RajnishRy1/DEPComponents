@@ -65,7 +65,7 @@ const YoutubeEmbed = ({ onClose }) => {
   };
 
   return (
-      <div className="rounded-xl p-6 w-[417px] bg-white shadow-lg flex flex-col overflow-hidden overflow-hidden ">
+      <div id="yt_element" className="rounded-xl p-6 w-[417px] bg-white shadow-lg flex flex-col overflow-hidden overflow-hidden ">
         <div className="w-full flex justify-center items-center border-b pb-2">
           <h2 className="text-xl font-semibold text-gray-800">YouTube Embed</h2>
         </div>
