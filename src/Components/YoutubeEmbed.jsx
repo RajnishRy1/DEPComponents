@@ -18,6 +18,19 @@ const YoutubeEmbed = ({ onClose }) => {
     }
   },[fields]);
 
+  useEffect(() => {
+    if(window.CustomElement){
+      try{
+        const height = document.getElementById('yt_element').scrollHeight;
+        window.CustomElement.setHeight(height);
+        window.CustomElement.setValue(JSON.stringify(fields));
+      }catch(e){
+        console.log(e);
+      }
+    }
+  },[]);
+  
+
   const handleChange = (index, event) => {
     const { name, value } = event.target;
     const newFields = [...fields];
