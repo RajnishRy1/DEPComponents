@@ -42,7 +42,7 @@ const AppointmentRecurrence = ({}) => {
       recurrenceEnd: isRecurrence ? endDate : null,
       selectedDate: isRecurrence ? selectedDate : null,
     };
-    // window.CustomElement.setValue(JSON.stringify(data));
+    window.CustomElement.setValue(JSON.stringify(data));
     // setEventData(data);
     alert('Event Date & Time Saved Successfully!');
   };
