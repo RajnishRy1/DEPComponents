@@ -117,12 +117,10 @@ const [selectedDate, setSelectedDate] = useState("");
   useEffect(() => {
     if (window.CustomElement) {
       try {
-        window.CustomElement.init((element,context)=>{
-            if(element.value){
-                console.log(element.value)
-                setElementValue(element.value);
-            }
-        });
+        window.CustomElement.init((element, context) => {
+          // Initializes the custom element
+          initMyCustomElement(element.value, element.disabled, element.config);
+       });
         const height = document.getElementById('appointment').scrollHeight;
         CustomElement.setHeight(height);
       } catch (e) {
