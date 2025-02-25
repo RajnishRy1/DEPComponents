@@ -111,7 +111,7 @@ const AppointmentRecurrence = ({}) => {
       try {
         window.CustomElement.init((element, context) => {
           // Initializes the custom element
-          const parsedValue = JSON.parse(value);
+          const parsedValue = JSON.parse(element.value);
           setStartDate(parsedValue.date || "");
           setTimeZones(parsedValue.timeZones || []);
           setStartTime(parsedValue.startTime || "");
