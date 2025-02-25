@@ -25,7 +25,12 @@ const AppointmentRecurrence = ({}) => {
   const [endDate, setEndDate] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [eventData, setEventData] = useState({});
-  const [elementValue, setElementValue] = useState({})
+  const [elementValue, setElementValue] = useState({});
+  const [recurrenceType, setRecurrenceType] = useState("weekly");
+// const [selectedDay, setSelectedDay] = useState(null);
+const [selectedDate, setSelectedDate] = useState("");
+// const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
 
   const handleClose = () => {
     setIsOpen(false);
@@ -38,9 +43,11 @@ const AppointmentRecurrence = ({}) => {
       endTime,
       duration,
       isRecurrence,
+      recurrenceType,
       selectedDay: isRecurrence ? selectedDay : null,
       recurrenceStart: isRecurrence ? startDate : null,
       recurrenceEnd: isRecurrence ? endDate : null,
+      selectedDate: isRecurrence ? selectedDate : null,
     };
     window.CustomElement.setValue(JSON.stringify(data));
     setEventData(data);
@@ -110,8 +117,9 @@ const AppointmentRecurrence = ({}) => {
   useEffect(() => {
     if (window.CustomElement) {
       try {
-        window.CustomElement.init((element)=>{
+        window.CustomElement.init((element,context)=>{
             if(element.value){
+                console.log(element.value)
                 setElementValue(element.value);
             }
         });
@@ -224,7 +232,7 @@ const AppointmentRecurrence = ({}) => {
             </div>
 
             <div className="mt-4 bg-white shadow-lg p-6 rounded-xl border border-gray-300">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-10 mb-2.5">
                 <input
                   type="checkbox"
                   id="isRecurrence"
@@ -236,10 +244,10 @@ const AppointmentRecurrence = ({}) => {
                   htmlFor="isRecurrence"
                   className="text-gray-700 font-medium"
                 >
-                  Is Recurrence
+                  Make Recurring
                 </label>
               </div>
-              {isRecurrence && (
+              {/*isRecurrence && (
                 <div className="flex items-center space-x-8">
                   <h2 className="text-lg font-semibold text-gray-800">
                     Weekly
@@ -259,7 +267,71 @@ const AppointmentRecurrence = ({}) => {
                     ))}
                   </div>
                 </div>
-              )}
+              ) */}
+              {isRecurrence && (
+  <div>
+    {/* Recurrence Type Selection */}
+    <div className="flex items-center space-x-8 mb-4">
+      <label className="flex items-center space-x-2">
+        <input
+          type="radio"
+          name="recurrenceType"
+          value="weekly"
+          checked={recurrenceType === "weekly"}
+          onChange={() => setRecurrenceType("weekly")}
+        />
+        <span className="text-lg font-semibold text-gray-800">Weekly</span>
+      </label>
+
+      <label className="flex items-center space-x-2">
+        <input
+          type="radio"
+          name="recurrenceType"
+          value="monthly"
+          checked={recurrenceType === "monthly"}
+          onChange={() => setRecurrenceType("monthly")}
+        />
+        <span className="text-lg font-semibold text-gray-800">Monthly</span>
+      </label>
+    </div>
+
+    {/* Weekly Selection */}
+    {recurrenceType === "weekly" && (
+      <div className="grid grid-cols-3 gap-2 mt-2">
+        {daysOfWeek.map((day) => (
+          <label key={day} className="flex items-center">
+            <input
+              type="radio"
+              name="weeklySelection"
+              className="mr-2"
+              checked={selectedDay === day}
+              onChange={() => setSelectedDay(day)}
+            />
+            {day}
+          </label>
+        ))}
+      </div>
+    )}
+
+    {/* Monthly Selection */}
+    {recurrenceType === "monthly" && (
+      <div className="mt-2">
+        <label className="flex items-center space-x-2">
+          <span className="text-gray-800">Select Date:</span>
+          <input
+            type="number"
+            min="1"
+            max="31"
+            className="border border-gray-300 p-2 rounded-md w-20"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </label>
+      </div>
+    )}
+  </div>
+)}
+
               {isRecurrence && (
                 <div className=" mt-4 flex items-center space-x-8">
                   <div className="flex items-center space-x-8">
