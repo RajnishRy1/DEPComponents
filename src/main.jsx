@@ -9,6 +9,7 @@ import App from './App.jsx'
 import IFrame from './Components/IFrame.jsx'
 import Video from './Components/Video.jsx'
 import AppointmentRecurrence from './Components/AppointmentReccurence.jsx'
+import YoutubeEmbed from './Components/YoutubeEmbed.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/iframe" element={<IFrame />} />
         <Route path="/video" element={<Video />} />
         <Route path="/appointment" element={<AppointmentRecurrence/>} />
+        <Route path="/youtubevideos" element={<YoutubeEmbed/>} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
