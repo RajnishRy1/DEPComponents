@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
-const YoutubeEmbed = ({ onClose }) => {
-  const [fields, setFields] = useState([{ date: "", url: "", embedId: "" }]);
+const VideosEmbed = ({ onClose }) => {
+  const [fields, setFields] = useState([{title:"", date: "", url: "", embedId: "" }]);
   const [isOpen, setIsOpen] = useState(true);
 
   useEffect(() => {
@@ -71,7 +71,7 @@ const YoutubeEmbed = ({ onClose }) => {
   return (
       <div id="yt_element" className="rounded-xl p-6 w-[417px] bg-white shadow-lg flex flex-col overflow-hidden overflow-hidden ">
         <div className="w-full flex justify-center items-center border-b pb-2">
-          <h2 className="text-xl font-semibold text-gray-800">YouTube Embed</h2>
+          <h2 className="text-xl font-semibold text-gray-800">Videos Embed</h2>
         </div>
         <div className="mt-5">
           {fields.map((field, index) => (
@@ -85,6 +85,15 @@ const YoutubeEmbed = ({ onClose }) => {
             onClick={()=>removeField(index)}
           />
           </div>
+          <label className="block text-sm font-medium text-gray-700">Title:</label>
+              <input
+                type="text"
+                name="title"
+                className="border rounded-md p-2 w-full text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+                value={field.title}
+                onChange={(e) => handleChange(index, e)}
+                placeholder="Enter title..."
+              />
               <label className="block text-sm font-medium text-gray-700">
                 Date:
               </label>
@@ -94,7 +103,7 @@ const YoutubeEmbed = ({ onClose }) => {
                 className="border rounded-md p-2 w-full"
                 value={field.date}
                 onChange={(e) => handleChange(index, e)}
-                min={new Date().toISOString().split("T")[0]}
+                max={new Date().toISOString().split("T")[0]}
               />
 
               <label className="block text-sm font-medium text-gray-700 mt-3">
@@ -140,4 +149,4 @@ const YoutubeEmbed = ({ onClose }) => {
 //   onClose: PropTypes.func.isRequired,
 // };
 
-export default YoutubeEmbed;
+export default VideosEmbed;

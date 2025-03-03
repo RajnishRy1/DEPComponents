@@ -3,16 +3,9 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Height } from "@mui/icons-material";
 
 const AppointmentRecurrence = ({}) => {
-  const usTimeZones = [
-    "Pacific Time (PT)",
-    "Mountain Time (MT)",
-    "Central Time (CT)",
-    "Eastern Time (ET)",
-    "Alaska Time (AKT)",
-    "Hawaii-Aleutian Time (HAT)",
-  ];
-
-  const [timeZones, setTimeZones] = useState(usTimeZones[0]);
+  const allTimeZones = Intl.supportedValuesOf('timeZone');
+  // const [allTimeZones, setAllTimeZones] = useState([]);
+  const [timeZones, setTimeZones] = useState(allTimeZones[0]);
   const [isRecurrence, setIsRecurrence] = useState(false);
   const [startTime, setStartTime] = useState("12:00 PM");
   const [endTime, setEndTime] = useState("12:30 PM");
@@ -24,11 +17,50 @@ const AppointmentRecurrence = ({}) => {
   const [eventData, setEventData] = useState({});
   const [recurrenceType, setRecurrenceType] = useState("weekly");
   const [selectedDate, setSelectedDate] = useState("");
+  const [isValid, setIsValid] = useState(true);
 
   const handleClose = () => {
     setIsOpen(false);
   };
   const handleSave = () => {
+    if (!startDate.trim()) {
+      alert("Date is required.");
+      return;
+    }
+    if (!timeZones.trim()) {
+      alert("Time zone is required.");
+      return;
+    }
+    if (!startTime.trim()) {
+      alert("Start time is required.");
+      return;
+    }
+    if (!endTime.trim()) {
+      alert("End time is required.");
+      return;
+    }
+    if (!duration.trim() || duration === "Invalid time selection") {
+      alert("Valid duration is required.");
+      return;
+    }
+    if (isRecurrence) {
+      if (!recurrenceType.trim()) {
+        alert("Recurrence type is required.");
+        return;
+      }
+      if (recurrenceType === "weekly" && !selectedDay) {
+        alert("Please select a day for weekly recurrence.");
+        return;
+      }
+      if (recurrenceType === "monthly" && (!selectedDate || !isValid)) {
+        alert("Please select a valid date for monthly recurrence.");
+        return;
+      }
+      if (!startDate.trim() || !endDate.trim()) {
+        alert("Recurrence start and end dates are required.");
+        return;
+      }
+    }
     const data = {
       date: startDate,
       timeZones,
@@ -104,6 +136,16 @@ const AppointmentRecurrence = ({}) => {
     }
   };
 
+  const handleChange = (e) => {
+    const value = e.target.value;
+    if (value >= 1 && value <= 31) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+    setSelectedDate(value);
+  }
+
   useEffect(() => {
     if (window.CustomElement) {
       try {
@@ -120,6 +162,7 @@ const AppointmentRecurrence = ({}) => {
           setSelectedDay(parsedValue.selectedDay || null);
           setEndDate(parsedValue.recurrenceEnd || "");
           setSelectedDate(parsedValue.selectedDate || null);
+          setAllTimeZones(Intl.supportedValuesOf('timeZone') || []);
         });
         const height = document.getElementById("appointment").scrollHeight;
         CustomElement.setHeight(height);
@@ -160,7 +203,7 @@ const AppointmentRecurrence = ({}) => {
                   value={timeZones}
                   onChange={(e) => setTimeZones(e.target.value)}
                 >
-                  {usTimeZones.map((zone) => (
+                  {allTimeZones.map((zone) => (
                     <option key={zone} value={zone}>
                       {zone}
                     </option>
@@ -295,9 +338,10 @@ const AppointmentRecurrence = ({}) => {
                         max="31"
                         className="border border-gray-300 p-2 rounded-md w-20"
                         value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
+                        onChange={handleChange}
                       />
                     </label>
+                    {!isValid && <span className="text-red-500 text-sm">Enter a valid date (1-31).</span>}
                   </div>
                 )}
               </div>
