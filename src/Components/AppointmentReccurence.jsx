@@ -162,7 +162,7 @@ const AppointmentRecurrence = ({}) => {
           setSelectedDay(parsedValue.selectedDay || null);
           setEndDate(parsedValue.recurrenceEnd || "");
           setSelectedDate(parsedValue.selectedDate || null);
-          setAllTimeZones(Intl.supportedValuesOf('timeZone') || []);
+          // setAllTimeZones(Intl.supportedValuesOf('timeZone') || []);
         });
         const height = document.getElementById("appointment").scrollHeight;
         CustomElement.setHeight(height);

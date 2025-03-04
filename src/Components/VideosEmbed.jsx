@@ -74,7 +74,7 @@ const VideosEmbed = ({ onClose }) => {
           <h2 className="text-xl font-semibold text-gray-800">Videos Embed</h2>
         </div>
         <div className="mt-5">
-          {fields.map((field, index) => (
+          {fields?.map((field, index) => (
             <div
               key={index}
               className="border p-4 rounded-md mb-4 bg-gray-100 relative"
