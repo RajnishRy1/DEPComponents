@@ -46,8 +46,18 @@ const VideosEmbed = ({ onClose }) => {
     const newFields = [...fields];
 
     if (name === "url") {
-      const videoId = extractYouTubeID(value);
-      newFields[index]["embedId"] = videoId || "";
+      let videoId;
+      let embedUrl;
+      if(value.indexOf("vimeo") !== -1){
+        const {videoId,videoId2} = extractVimeoID(value);
+        embedUrl = videoId ? `https://player.vimeo.com/video/${videoId}?h=${videoId2}` : "";
+      }
+      else{
+      videoId = extractYouTubeID(value);
+      embedUrl = videoId ? `https://www.youtube.com/embed/${videoId}` : "";
+      
+      }
+      newFields[index]["embedId"] = embedUrl || "";
     }
 
     newFields[index][name] = value;
@@ -78,10 +88,28 @@ const VideosEmbed = ({ onClose }) => {
     return match ? match[1] : null;
   };
 
+  // const extractVimeoID = (url) => {
+  //   const regex = /vimeo\.com\/(\d+)/;
+  //   const match = url.match(regex);
+  //   return match ? match[1] : null;
+  // };
+  
+  function extractVimeoID(url) {
+    const regex = /vimeo\.com\/(\d+)\/([\w\d]+)/;
+    const match = url.match(regex);
+    
+    if (match) {
+        const videoId = match[1];  // First ID (video ID)
+        const videoId2 = match[2]; // Second ID (hash)
+        return { videoId, videoId2 };
+    }
+    return { videoId: null, videoId2: null };
+}
+
   return (
     <div id="yt_element" className="rounded-xl p-6 w-[417px] bg-white shadow-lg flex flex-col">
       <div className="w-full flex justify-between items-center border-b pb-2">
-        <h2 className="text-xl font-semibold text-gray-800">Videos Embed</h2>
+        <h2 className="text-xl font-semibold text-gray-800">Embeded Videos</h2>
         <CloseOutlinedIcon className="cursor-pointer text-gray-500 hover:text-red-500" onClick={handleClose} />
       </div>
 
@@ -112,7 +140,7 @@ const VideosEmbed = ({ onClose }) => {
               max={new Date().toISOString().split("T")[0]}
             />
 
-            <label className="block text-sm font-medium text-gray-700 mt-3">YouTube URL:</label>
+            <label className="block text-sm font-medium text-gray-700 mt-3">Video URL:</label>
             <input
               type="text"
               name="url"
@@ -127,7 +155,7 @@ const VideosEmbed = ({ onClose }) => {
                 <iframe
                   width="100%"
                   height="250"
-                  src={`https://www.youtube.com/embed/${field.embedId}`}
+                  src={field.embedId}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
