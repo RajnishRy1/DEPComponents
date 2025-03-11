@@ -3,7 +3,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import { Height } from "@mui/icons-material";
 
 const AppointmentRecurrence = ({}) => {
-  const allTimeZones = Intl.supportedValuesOf('timeZone');
+  const allTimeZones = Intl.supportedValuesOf("timeZone");
   // const [allTimeZones, setAllTimeZones] = useState([]);
   const [timeZones, setTimeZones] = useState(allTimeZones[0]);
   const [isRecurrence, setIsRecurrence] = useState(false);
@@ -76,7 +76,7 @@ const AppointmentRecurrence = ({}) => {
     };
     window.CustomElement.setValue(JSON.stringify(data));
     // setEventData(data);
-    alert('Event Date & Time Saved Successfully!');
+    alert("Event Date & Time Saved Successfully!");
   };
 
   if (!isOpen) return null;
@@ -97,12 +97,19 @@ const AppointmentRecurrence = ({}) => {
     );
   };
 
-  const timeOptions = Array.from({ length: 48 }, (_, i) => {
-    const hours = Math.floor(i / 2);
-    const minutes = i % 2 === 0 ? "00" : "30";
+  // const timeOptions = Array.from({ length: 48 }, (_, i) => {
+  //   const hours = Math.floor(i / 2);
+  //   const minutes = i % 2 === 0 ? "00" : "30";
+  //   const period = hours < 12 ? "AM" : "PM";
+  //   const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
+  //   return `${formattedHour}:${minutes} ${period}`;
+  // });
+  const timeOptions = Array.from({ length: 96 }, (_, i) => {
+    const hours = Math.floor(i / 4); // Each hour has 4 slots (15 min each)
+    const minutes = (i % 4) * 15; // Minutes: 0, 15, 30, 45
     const period = hours < 12 ? "AM" : "PM";
     const formattedHour = hours % 12 === 0 ? 12 : hours % 12;
-    return `${formattedHour}:${minutes} ${period}`;
+    return `${formattedHour}:${minutes.toString().padStart(2, "0")} ${period}`;
   });
 
   const timeToMinutes = (time) => {
@@ -144,7 +151,7 @@ const AppointmentRecurrence = ({}) => {
       setIsValid(false);
     }
     setSelectedDate(value);
-  }
+  };
 
   useEffect(() => {
     if (window.CustomElement) {
@@ -341,7 +348,11 @@ const AppointmentRecurrence = ({}) => {
                         onChange={handleChange}
                       />
                     </label>
-                    {!isValid && <span className="text-red-500 text-sm">Enter a valid date (1-31).</span>}
+                    {!isValid && (
+                      <span className="text-red-500 text-sm">
+                        Enter a valid date (1-31).
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
